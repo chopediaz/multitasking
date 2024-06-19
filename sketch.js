@@ -40,7 +40,7 @@ function iniciarExperiencia() {
       video.elt.pause(); // Pausa el video después de 3 segundos
       document.getElementById('fondo-arte').style.filter = 'blur(10px)'; // Aplica desenfoque al fondo
       iniciarCreacionVentanas(intervaloInicial, 0); // Inicia la creación de ventanas con intervalos crecientes
-    }, 3000); // Espera 3 segundos antes de aplicar el desenfoque y pausar el video
+    }, 8000); // Espera 3 segundos antes de aplicar el desenfoque y pausar el video
   }).catch((error) => {
     console.error('Error al reproducir el video:', error);
   });
