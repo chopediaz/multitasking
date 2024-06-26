@@ -37,23 +37,21 @@ body, html {
 
 .ventana-tarea {
   position: absolute;
+  width: 20%;
+  height: 20%;
   background-color: white;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  width: 20%;
-  height: 20%;
-}
-
-.cabecera-tarea {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  background-color: #f1f1f1;
-  padding: 5px;
 }
 
 .boton-cerrar {
+  position: absolute;
+  top: 5px;
+  right: 5px;
   background-color: #e74c3c;
   border: none;
   color: white;
@@ -62,13 +60,7 @@ body, html {
   border-radius: 3px;
 }
 
-.cuerpo-tarea {
-  padding: 10px;
-  height: calc(100% - 40px);
-  overflow-y: auto;
-}
-
-.ventana-tarea img {
+.imagen-tarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
