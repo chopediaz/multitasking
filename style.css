@@ -40,31 +40,28 @@ body, html {
   background-color: white;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
   width: 20%;
   height: 20%;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.boton-cerrar {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: #e74c3c;
-  border: none;
-  color: white;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 3px;
-  z-index: 1;
+.cabecera-tarea {
+  display: none;
 }
 
 .cuerpo-tarea {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cuerpo-tarea img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
