@@ -8,7 +8,7 @@ let botonInicio; // Variable para el botón de inicio
 let totalVentanasCreadas = 0; // Contador para el total de ventanas creadas
 let creandoVentanas = true; // Variable para saber si se siguen creando ventanas
 let sonidos = []; // Array para almacenar los sonidos de notificación
-let imagenes = {}; // Objeto para almacenar las imágenes
+let imagenes = {}; // Object para almacenar las imágenes
 
 function preload() {
   // Cargar los sonidos de notificación y manejar posibles errores
@@ -22,8 +22,8 @@ function preload() {
     });
   }
 
-  // Cargar las imágenes
-  let nombresImagenes = ["facebook", "gmail", "instagram", "linkedin", "mensaje", "tiktok", "whatsapp", "youtube"];
+  // Cargar las imágenes de notificación
+  const nombresImagenes = ['facebook', 'gmail', 'instagram', 'linkedin', 'mensaje', 'tiktok', 'whatsapp', 'youtube'];
   nombresImagenes.forEach(nombre => {
     let rutaImagen = `notificaciones/${nombre}.jpg`;
     loadImage(rutaImagen, (img) => {
@@ -96,24 +96,28 @@ class VentanaTarea {
   constructor(x, y, contenido, imagen) {
     this.x = x;
     this.y = y;
-    this.ancho = 20; // Establece el ancho en porcentaje
-    this.alto = 20; // Establece la altura en porcentaje
+    this.ancho = '20%'; // Establece un ancho fijo
+    this.alto = '20%'; // Establece una altura fija
     this.contenido = contenido;
     this.estaCerrada = false;
 
     // Crear el contenedor de la ventana
-    this.divVentana = createDiv().addClass('ventana-tarea').position(this.x, this.y).size(`${this.ancho}%`, `${this.alto}%`);
+    this.divVentana = createDiv().addClass('ventana-tarea').position(this.x + '%', this.y + '%').size(this.ancho, this.alto);
 
     // Crear el cuerpo de la ventana
     this.divCuerpo = createDiv().addClass('cuerpo-tarea').parent(this.divVentana);
-    createImg(imagen).parent(this.divCuerpo).addClass('imagen-tarea');
+    createImg(imagen, 'notificación').parent(this.divCuerpo).addClass('imagen-notificacion');
+
+    // Crear el botón de cierre
+    this.botonCerrar = createButton('X').addClass('boton-cerrar').parent(this.divVentana);
+    this.botonCerrar.mousePressed(() => this.cerrar());
 
     // Reproducir un sonido de notificación
     reproducirSonidoAleatorio();
   }
 
   mostrar() {
-    this.divVentana.position(this.x, this.y);
+    this.divVentana.position(this.x + '%', this.y + '%');
   }
 
   cerrar() {
@@ -123,12 +127,12 @@ class VentanaTarea {
 }
 
 function crearVentanaTarea() {
-  const x = random(0, 80); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
-  const y = random(0, 80); // Genera una coordenada y aleatoria para la nueva ventana, asegurándose de que la ventana quepa en la altura
+  const x = random(80); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
+  const y = random(80); // Genera una coordenada y aleatoria para la nueva ventana, asegurándose de que la ventana quepa en la altura
   const contenido = `Contenido ${ventanasTareas.length + 1}`; // Define el contenido de la ventana
-  const nombresImagenes = Object.keys(imagenes);
-  const nombreImagenAleatoria = random(nombresImagenes);
-  const imagen = imagenes[nombreImagenAleatoria];
+  const nombresImagenes = ['facebook', 'gmail', 'instagram', 'linkedin', 'mensaje', 'tiktok', 'whatsapp', 'youtube'];
+  const nombreImagen = random(nombresImagenes);
+  const imagen = imagenes[nombreImagen]; // Selecciona una imagen aleatoria
   const nuevaVentana = new VentanaTarea(x, y, contenido, imagen); // Crea una nueva instancia de `VentanaTarea` con las coordenadas y el contenido
   ventanasTareas.push(nuevaVentana); // Añade la nueva ventana al array `ventanasTareas`
 }
