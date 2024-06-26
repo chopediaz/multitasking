@@ -96,8 +96,8 @@ class VentanaTarea {
   constructor(x, y, contenido, imagen) {
     this.x = x;
     this.y = y;
-    this.ancho = random(200, 400); // Establece un ancho aleatorio entre 200 y 400
-    this.alto = random(150, 300); // Establece una altura aleatoria entre 150 y 300
+    this.ancho = 480; // Establece un ancho fijo
+    this.alto = 260; // Establece una altura fija
     this.contenido = contenido;
     this.imagen = imagen;
     this.estaCerrada = false;
@@ -114,6 +114,7 @@ class VentanaTarea {
     // Crear el cuerpo de la ventana
     this.divCuerpo = createDiv(this.contenido).addClass('cuerpo-tarea').parent(this.divVentana);
     this.divCuerpo.child(createImg(this.imagen));
+
     // Reproducir un sonido de notificación
     reproducirSonidoAleatorio();
   }
@@ -129,8 +130,8 @@ class VentanaTarea {
 }
 
 function crearVentanaTarea() {
-  const x = random(windowWidth - 400); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
-  const y = random(windowHeight - 300); // Genera una coordenada y aleatoria para la nueva ventana, asegurándose de que la ventana quepa en la altura
+  const x = random(windowWidth - 480); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
+  const y = random(windowHeight - 260); // Genera una coordenada y aleatoria para la nueva ventana, asegurándose de que la ventana quepa en la altura
   const contenido = `Contenido ${ventanasTareas.length + 1}`; // Define el contenido de la ventana
   const nombreImagen = random(Object.keys(imagenes)); // Selecciona un nombre de imagen aleatorio
   const rutaImagen = `notificaciones/${nombreImagen}.jpg`; // Construye la ruta de la imagen
