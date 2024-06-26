@@ -43,25 +43,33 @@ body, html {
   overflow: hidden;
   width: 20%;
   height: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .cabecera-tarea {
-  display: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 5px;
+}
+
+.boton-cerrar {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 3px;
 }
 
 .cuerpo-tarea {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 10px;
+  height: calc(100% - 40px);
+  overflow-y: auto;
 }
 
-.cuerpo-tarea img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+.ventana-tarea img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
