@@ -8,6 +8,7 @@ let botonInicio; // Variable para el botón de inicio
 let totalVentanasCreadas = 0; // Contador para el total de ventanas creadas
 let creandoVentanas = true; // Variable para saber si se siguen creando ventanas
 let sonidos = []; // Array para almacenar los sonidos de notificación
+let imagenes = []; // Array para almacenar las imágenes de notificación
 
 function preload() {
   // Cargar los sonidos de notificación y manejar posibles errores
@@ -20,6 +21,18 @@ function preload() {
       console.error(`Error al cargar el sonido ${rutaSonido}:`, err);
     });
   }
+
+  // Cargar las imágenes de notificación
+  let nombresImagenes = ['facebook', 'gmail', 'instagram', 'linkedin', 'mensaje', 'tiktok', 'whatsapp', 'youtube'];
+  nombresImagenes.forEach(nombre => {
+    let rutaImagen = `notificaciones/${nombre}.png`;
+    let img = loadImage(rutaImagen, () => {
+      console.log(`Imagen ${rutaImagen} cargada correctamente`);
+      imagenes.push(img);
+    }, (err) => {
+      console.error(`Error al cargar la imagen ${rutaImagen}:`, err);
+    });
+  });
 }
 
 function setup() {
@@ -40,7 +53,7 @@ function iniciarExperiencia() {
       video.elt.pause(); // Pausa el video después de 3 segundos
       document.getElementById('fondo-arte').style.filter = 'blur(10px)'; // Aplica desenfoque al fondo
       iniciarCreacionVentanas(intervaloInicial, 0); // Inicia la creación de ventanas con intervalos crecientes
-    }, 8000); // Espera 3 segundos antes de aplicar el desenfoque y pausar el video
+    }, 3000); // Espera 3 segundos antes de aplicar el desenfoque y pausar el video
   }).catch((error) => {
     console.error('Error al reproducir el video:', error);
   });
@@ -80,12 +93,13 @@ function draw() {
 }
 
 class VentanaTarea {
-  constructor(x, y, contenido) {
+  constructor(x, y, contenido, imagen) {
     this.x = x;
     this.y = y;
     this.ancho = random(200, 400); // Establece un ancho aleatorio entre 200 y 400
     this.alto = random(150, 300); // Establece una altura aleatoria entre 150 y 300
     this.contenido = contenido;
+    this.imagen = imagen;
     this.estaCerrada = false;
 
     // Crear el contenedor de la ventana
@@ -98,7 +112,9 @@ class VentanaTarea {
     this.botonCerrar.mousePressed(() => this.cerrar());
 
     // Crear el cuerpo de la ventana
-    this.divCuerpo = createDiv(this.contenido).addClass('cuerpo-tarea').parent(this.divVentana);
+    this.divCuerpo = createDiv().addClass('cuerpo-tarea').parent(this.divVentana);
+    createImg(this.imagen).parent(this.divCuerpo); // Añade la imagen al cuerpo de la ventana
+    createDiv(this.contenido).addClass('texto-tarea').parent(this.divCuerpo);
 
     // Reproducir un sonido de notificación
     reproducirSonidoAleatorio();
@@ -118,7 +134,8 @@ function crearVentanaTarea() {
   const x = random(windowWidth - 400); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
   const y = random(windowHeight - 300); // Genera una coordenada y aleatoria para la nueva ventana, asegurándose de que la ventana quepa en la altura
   const contenido = `Contenido ${ventanasTareas.length + 1}`; // Define el contenido de la ventana
-  const nuevaVentana = new VentanaTarea(x, y, contenido); // Crea una nueva instancia de `VentanaTarea` con las coordenadas y el contenido
+  const imagen = random(imagenes); // Selecciona una imagen aleatoria del array
+  const nuevaVentana = new VentanaTarea(x, y, contenido, imagen); // Crea una nueva instancia de `VentanaTarea` con las coordenadas, el contenido y la imagen
   ventanasTareas.push(nuevaVentana); // Añade la nueva ventana al array `ventanasTareas`
 }
 
