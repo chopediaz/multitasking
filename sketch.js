@@ -8,7 +8,7 @@ let botonInicio; // Variable para el botón de inicio
 let totalVentanasCreadas = 0; // Contador para el total de ventanas creadas
 let creandoVentanas = true; // Variable para saber si se siguen creando ventanas
 let sonidos = []; // Array para almacenar los sonidos de notificación
-let imagenes = []; // Array para almacenar las imágenes de notificación
+let imagenes = {}; // Objeto para almacenar las imágenes
 
 function preload() {
   // Cargar los sonidos de notificación y manejar posibles errores
@@ -25,10 +25,9 @@ function preload() {
   // Cargar las imágenes de notificación
   let nombresImagenes = ['facebook', 'gmail', 'instagram', 'linkedin', 'mensaje', 'tiktok', 'whatsapp', 'youtube'];
   nombresImagenes.forEach(nombre => {
-    let rutaImagen = `notificaciones/${nombre}.png`;
-    let img = loadImage(rutaImagen, () => {
+    let rutaImagen = `notificaciones/${nombre}.jpg`;
+    imagenes[nombre] = loadImage(rutaImagen, () => {
       console.log(`Imagen ${rutaImagen} cargada correctamente`);
-      imagenes.push(img);
     }, (err) => {
       console.error(`Error al cargar la imagen ${rutaImagen}:`, err);
     });
@@ -111,10 +110,14 @@ class VentanaTarea {
     this.botonCerrar = createButton('X').addClass('boton-cerrar').parent(this.divCabecera);
     this.botonCerrar.mousePressed(() => this.cerrar());
 
-    // Crear el cuerpo de la ventana
+    // Crear el cuerpo de la ventana con imagen
     this.divCuerpo = createDiv().addClass('cuerpo-tarea').parent(this.divVentana);
-    createImg(this.imagen).parent(this.divCuerpo); // Añade la imagen al cuerpo de la ventana
-    createDiv(this.contenido).addClass('texto-tarea').parent(this.divCuerpo);
+    if (this.imagen) {
+      this.img = createImg(this.imagen).parent(this.divCuerpo);
+      this.img.size(this.ancho - 20, this.alto - 60);
+    } else {
+      this.divCuerpo.html(this.contenido);
+    }
 
     // Reproducir un sonido de notificación
     reproducirSonidoAleatorio();
@@ -134,8 +137,9 @@ function crearVentanaTarea() {
   const x = random(windowWidth - 400); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
   const y = random(windowHeight - 300); // Genera una coordenada y aleatoria para la nueva ventana, asegurándose de que la ventana quepa en la altura
   const contenido = `Contenido ${ventanasTareas.length + 1}`; // Define el contenido de la ventana
-  const imagen = random(imagenes); // Selecciona una imagen aleatoria del array
-  const nuevaVentana = new VentanaTarea(x, y, contenido, imagen); // Crea una nueva instancia de `VentanaTarea` con las coordenadas, el contenido y la imagen
+  const imagenesNombres = ['facebook', 'gmail', 'instagram', 'linkedin', 'mensaje', 'tiktok', 'whatsapp', 'youtube'];
+  const nombreImagenAleatoria = random(imagenesNombres);
+  const nuevaVentana = new VentanaTarea(x, y, contenido, imagenes[nombreImagenAleatoria].src); // Crea una nueva instancia de `VentanaTarea` con las coordenadas y el contenido
   ventanasTareas.push(nuevaVentana); // Añade la nueva ventana al array `ventanasTareas`
 }
 
