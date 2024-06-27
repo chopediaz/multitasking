@@ -60,6 +60,7 @@ body, html {
   cursor: pointer;
   padding: 5px;
   border-radius: 3px;
+  margin-left: auto; /* Asegura que el botón esté a la derecha */
 }
 
 .cuerpo-tarea {
