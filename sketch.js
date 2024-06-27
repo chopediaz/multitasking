@@ -106,7 +106,7 @@ class VentanaTarea {
     this.botonCerrar.mousePressed(() => this.cerrar());
 
     // Añadir la imagen
-    createImg(imagen).addClass('imagen-tarea').parent(this.divVentana);
+    this.imagen = createImg(imagen).addClass('imagen-tarea').parent(this.divVentana);
 
     // Reproducir un sonido de notificación
     reproducirSonidoAleatorio();
