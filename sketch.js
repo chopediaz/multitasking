@@ -93,12 +93,11 @@ function draw() {
 }
 
 class VentanaTarea {
-  constructor(x, y, contenido, imagen) {
+  constructor(x, y, imagen) {
     this.x = x;
     this.y = y;
     this.ancho = windowWidth * 0.2; // Establece un ancho fijo
     this.alto = windowHeight * 0.2; // Establece una altura fija
-    this.contenido = contenido;
     this.imagen = imagen;
     this.estaCerrada = false;
 
@@ -106,12 +105,11 @@ class VentanaTarea {
     this.divVentana = createDiv().addClass('ventana-tarea').position(this.x, this.y).size(this.ancho, this.alto);
 
     // Crear el cuerpo de la ventana
-    this.divCuerpo = createDiv('').addClass('cuerpo-tarea').parent(this.divVentana);
-    let imgElement = createImg(this.imagen).parent(this.divCuerpo);
-    this.divCuerpo.child(createP(this.contenido));
+    this.divCuerpo = createDiv().addClass('cuerpo-tarea').parent(this.divVentana);
+    let imgElement = createImg(this.imagen).parent(this.divCuerpo).addClass('imagen-tarea');
 
     // Crear el botón de cierre
-    this.botonCerrar = createButton('X').addClass('boton-cerrar').parent(this.divVentana).style('float', 'right');
+    this.botonCerrar = createButton('X').addClass('boton-cerrar').parent(this.divVentana);
     this.botonCerrar.mousePressed(() => this.cerrar());
 
     // Reproducir un sonido de notificación
@@ -129,26 +127,14 @@ class VentanaTarea {
 }
 
 function crearVentanaTarea() {
-  const x = random(windowWidth - 480); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
-  const y = random(windowHeight - 260); // Genera una coordenada y aleatoria para la nueva ventana, asegurándose de que la ventana quepa en la altura
-  const contenido = ""; // Define el contenido de la ventana (vacío)
+  const x = random(windowWidth - windowWidth * 0.2); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
+  const y = random(windowHeight - windowHeight * 0.2); // Genera una coordenada y aleatoria para la nueva ventana, asegurándose de que la ventana quepa en la altura
   const nombreImagen = random(Object.keys(imagenes)); // Selecciona un nombre de imagen aleatorio
   const rutaImagen = `notificaciones/${nombreImagen}.jpg`; // Construye la ruta de la imagen
-  const nuevaVentana = new VentanaTarea(x, y, contenido, rutaImagen); // Crea una nueva instancia de `VentanaTarea` con las coordenadas y el contenido
+  const nuevaVentana = new VentanaTarea(x, y, rutaImagen); // Crea una nueva instancia de `VentanaTarea` con las coordenadas y el contenido
   ventanasTareas.push(nuevaVentana); // Añade la nueva ventana al array `ventanasTareas`
 }
 
-
-
-function crearVentanaTarea() {
-  const x = random(windowWidth - 480); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
-  const y = random(windowHeight - 260); // Genera una coordenada y aleatoria para la nueva ventana, asegurándose de que la ventana quepa en la altura
-  const contenido = `Contenido ${ventanasTareas.length + 1}`; // Define el contenido de la ventana
-  const nombreImagen = random(Object.keys(imagenes)); // Selecciona un nombre de imagen aleatorio
-  const rutaImagen = `notificaciones/${nombreImagen}.jpg`; // Construye la ruta de la imagen
-  const nuevaVentana = new VentanaTarea(x, y, contenido, rutaImagen); // Crea una nueva instancia de `VentanaTarea` con las coordenadas y el contenido
-  ventanasTareas.push(nuevaVentana); // Añade la nueva ventana al array `ventanasTareas`
-}
 
 function reproducirSonidoAleatorio() {
   if (sonidos.length > 0) {
