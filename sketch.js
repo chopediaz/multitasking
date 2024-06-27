@@ -96,8 +96,8 @@ class VentanaTarea {
   constructor(x, y, contenido, imagen) {
     this.x = x;
     this.y = y;
-    this.ancho = 480; // Establece un ancho fijo
-    this.alto = 260; // Establece una altura fija
+    this.ancho = windowWidth * 0.2; // Establece un ancho fijo
+    this.alto = windowHeight * 0.2; // Establece una altura fija
     this.contenido = contenido;
     this.imagen = imagen;
     this.estaCerrada = false;
@@ -105,15 +105,14 @@ class VentanaTarea {
     // Crear el contenedor de la ventana
     this.divVentana = createDiv().addClass('ventana-tarea').position(this.x, this.y).size(this.ancho, this.alto);
 
-    // Crear la cabecera de la ventana
-    this.divCabecera = createDiv().addClass('cabecera-tarea').parent(this.divVentana);
-    createSpan('Tarea').parent(this.divCabecera);
-    this.botonCerrar = createButton('X').addClass('boton-cerrar').parent(this.divCabecera);
-    this.botonCerrar.mousePressed(() => this.cerrar());
-
     // Crear el cuerpo de la ventana
-    this.divCuerpo = createDiv(this.contenido).addClass('cuerpo-tarea').parent(this.divVentana);
-    this.divCuerpo.child(createImg(this.imagen));
+    this.divCuerpo = createDiv('').addClass('cuerpo-tarea').parent(this.divVentana);
+    let imgElement = createImg(this.imagen).parent(this.divCuerpo);
+    this.divCuerpo.child(createP(this.contenido));
+
+    // Crear el botón de cierre
+    this.botonCerrar = createButton('X').addClass('boton-cerrar').parent(this.divVentana);
+    this.botonCerrar.mousePressed(() => this.cerrar());
 
     // Reproducir un sonido de notificación
     reproducirSonidoAleatorio();
@@ -128,6 +127,7 @@ class VentanaTarea {
     this.divVentana.hide();
   }
 }
+
 
 function crearVentanaTarea() {
   const x = random(windowWidth - 480); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
