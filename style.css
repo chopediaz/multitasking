@@ -41,8 +41,6 @@ body, html {
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 .boton-cerrar {
@@ -52,7 +50,9 @@ body, html {
   cursor: pointer;
   padding: 5px;
   border-radius: 3px;
-  align-self: flex-end;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 .imagen-tarea {
