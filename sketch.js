@@ -111,7 +111,7 @@ class VentanaTarea {
     this.divCuerpo.child(createP(this.contenido));
 
     // Crear el botón de cierre
-    this.botonCerrar = createButton('X').addClass('boton-cerrar').parent(this.divVentana);
+    this.botonCerrar = createButton('X').addClass('boton-cerrar').parent(this.divVentana).style('float', 'right');
     this.botonCerrar.mousePressed(() => this.cerrar());
 
     // Reproducir un sonido de notificación
@@ -127,6 +127,17 @@ class VentanaTarea {
     this.divVentana.hide();
   }
 }
+
+function crearVentanaTarea() {
+  const x = random(windowWidth - 480); // Genera una coordenada x aleatoria para la nueva ventana, asegurándose de que la ventana quepa en el ancho
+  const y = random(windowHeight - 260); // Genera una coordenada y aleatoria para la nueva ventana, asegurándose de que la ventana quepa en la altura
+  const contenido = ""; // Define el contenido de la ventana (vacío)
+  const nombreImagen = random(Object.keys(imagenes)); // Selecciona un nombre de imagen aleatorio
+  const rutaImagen = `notificaciones/${nombreImagen}.jpg`; // Construye la ruta de la imagen
+  const nuevaVentana = new VentanaTarea(x, y, contenido, rutaImagen); // Crea una nueva instancia de `VentanaTarea` con las coordenadas y el contenido
+  ventanasTareas.push(nuevaVentana); // Añade la nueva ventana al array `ventanasTareas`
+}
+
 
 
 function crearVentanaTarea() {
