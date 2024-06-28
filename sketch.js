@@ -1,7 +1,7 @@
 let ventanasTareas = []; // Array para almacenar las ventanas de tareas
 let tareasCompletadas = 0; // Contador para llevar la cuenta de cuántas ventanas de tareas se han cerrado
 const tiempoTotal = 40 * 1000; // Duración total en milisegundos para la aparición de nuevas ventanas
-const intervaloInicial = 0.9 * 1000; // Intervalo inicial de tiempo en milisegundos para la creación de nuevas ventanas
+const intervaloInicial = 1.3 * 1000; // Intervalo inicial de tiempo en milisegundos para la creación de nuevas ventanas
 const intervaloFinal = 0.3 * 1000; // Intervalo final de tiempo en milisegundos para la creación de nuevas ventanas
 let video; // Variable para almacenar el video
 let botonInicio; // Variable para el botón de inicio
